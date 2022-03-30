@@ -1,0 +1,101 @@
+.container{
+    margin: 0 auto;
+}
+
+
+
+.content{
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+.carousel-item  {
+    height: 400px;
+    margin-bottom: 10px;
+}
+.carousel-item  img {
+    height: 400px;
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 300px;
+}
+.product {
+}
+.card-body{
+    float: left;
+}
+.card-body .card-title .name {
+    font-size: 20px;
+}
+.btn-primary {
+    float: left;
+    margin:0 10px;
+}
+.content h5 {
+    font-size: 15px;
+}
+.pagination{
+    margin-left: 300px;
+}
+
+/*fs*/
+
+.nav-link:hover {
+    background-color: #525252 !important
+}
+
+.nav-link .fa {
+    transition: all 1s
+}
+
+.nav-link:hover .fa {
+    transform: rotate(360deg)
+}
+.sidebar{
+    color: coral;
+}
+.flex-column{
+    margin-top: 40px;
+    color: black;
+    background-color: whitesmoke;
+    width: 350px;
+    float: right;
+
+}
+.image{
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.content-img{
+
+}
+.lable{
+    margin-bottom: 30px;
+}
+.dropdown .part {
+
+}
+.flex-column1{
+    margin-top: 40px;
+    color: black;
+    background-color: whitesmoke;
+    float: right;
+
+}
+.username a {
+    float: right;
+}
+.avatar img-circle{
+
+    border: 1px #d4d4d4 solid;
+    padding: 7px;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+
+}
