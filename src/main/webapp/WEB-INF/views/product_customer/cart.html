@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product_customer/layout::head">
+</head>
+<body>
+<div class="container">
+    <div class="header" th:replace="/product_customer/layout::header">
+
+    </div>
+    <div class="content">
+        <div class="row">
+            <div  class="col-2" th:replace="/product_customer/layout::sidebar">
+
+            </div>
+            <div  class="col-10">
+                <p>
+                    <a th:href="@{/shop}">Tiếp tục mua hàng</a>
+                </p>
+                <h3>GIỎ HÀNG CỦA BẠN</h3>
+                <form th:action="@{/shop}" th:object="${cart}" method="get">
+                <table class="table table-success table-striped">
+                    <tr>
+                        <th>STT</th>
+                        <th>Ảnh sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá(VND)</th>
+                        <th>Tổng số tiền phải trả</th>
+                    </tr>
+                    <tr th:each="product,productStatus: ${cart.products}">
+                        <td th:text="${productStatus.count}"></td>
+                        <td><img th:src="@{/image/__${product.getKey().getImage()}__}" alt="Ảnh sản phẩm" width="100" height="100"></td>
+                        <td th:text="${product.getKey().getName()}"></td>
+                        <td>
+                            <a id="decrease_button" th:href="@{/shop/add/__${product.getKey().id}__(action='show1')}" th:text="${'-'}"></a>
+                            <span th:text="${product.getValue()}"></span>
+                            <a id="increase_button" th:href="@{/shop/add/__${product.getKey().id}__(action='show')}"
+                               th:text="${'+'}"></a>
+                        </td>
+                        <td th:text="${product.getKey().getPrice()}"></td>
+                        <td th:text="${cart.countTotalPayment()}"></td>
+                        <td>
+                            <a  th:href="@{/shop/add/__${product.getKey().id}__(action='delete')}">
+                                <button class="btn btn-danger">Xóa</button></a>
+                        </td>
+                    </tr>
+
+
+                </table>
+
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

@@ -6,51 +6,63 @@
     <div class="header" th:replace="/product_customer/layout::header">
 
     </div>
-
+<div class="content">
         <div class="row">
-        <div  class="col-2" th:replace="/product_customer/layout::sidebar">
-        </div>
-        <div  class="col-9">
+            <div  class="col-2" th:replace="/product_customer/layout::sidebar">
+
+            </div>
+        <div  class="col-10">
+            <p>
+                <a th:href="@{/shopping-cart}">Giỏ hàng của bạn</a>
+            </p>
             <h3>DANH SÁCH SẢN PHẨM</h3>
 
-            <div class="product" th:each="product : ${products}">
-
-                    <div class="content">
-                        <div class="card"
-                             style="width: 12rem; white-space: nowrap ; overflow:hidden; text-overflow: ellipsis ">
+            <div class="row">
+                <div class="col-3" th:each="product : ${products}">
+                    <div class="card"
+                         style="width: 12rem; white-space: nowrap ; overflow:hidden; text-overflow: ellipsis ">
+                        <a style="text-decoration: none"
+                           th:href="@{#}"><img th:src="@{/image/__${product.image}__}" class="card-img-top"></a>
+                        <div class="card-body">
                             <a style="text-decoration: none"
-                               th:href="@{#}"><img th:src="@{/image/__${product.image}__}" class="card-img-top"></a>
-                            <div class="card-body">
-                                <a style="text-decoration: none"
-                                   th:href="@{#}" ><h5 style="font-size: 20px" class="card-title name" th:text="${product.getName()}"></h5>
-                                </a>
-                                <h5 class="card-title" th:text= "${product.price}"></h5>
-                                <p class="card-text" th:text="${product.quantity}"></p>
-                                <a th:href="@{#}">
-                                    <button class="btn btn-primary">Mua</button></a>
-                            </div>
+                               th:href="@{#}" ><h5 style="font-size: 20px" class="card-title name" th:text="${product.getName()}"></h5>
+                            </a>
+                            <h5 class="card-title" th:text= "${product.price}"></h5>
+                            <p class="card-text" th:text="${product.quantity}"></p>
+                            <a th:href="@{/shop/add/__${product.id}__(action='list')}">
+                                <button class="btn btn-primary">Mua</button></a>
                         </div>
                     </div>
-        </div>
+
+                </div>
+                <center>
+                    <nav1 aria-label="Page navigation example">
+                        <ul class="pagination" th:if="${name==null}">
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=0)}">First</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=1)}">2</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.getTotalPages()-1})}">Last</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a></li>
+                        </ul>
+                        <ul class="pagination" th:if="${name!=null}">
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number - 1}, name=${name})}" th:if="${products.hasPrevious()}">Previous</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=0, name=${name})}">First</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=1, name=${name})}">2</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.getTotalPages()-1}, name=${name})}">Last</a></li>
+                            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number + 1}, name=${name})}" th:if="${products.hasNext()}">Next</a></li>
+                        </ul>
+                    </nav1>
+                </center>
+            </div>
+
+
+
     </div>
 
         </div>
-    <nav1 aria-label="Page navigation example">
-        <ul class="pagination" th:if="${name==null}">
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=0)}">1</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=1)}">2</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=2)}">3</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a></li>
-        </ul>
-        <ul class="pagination" th:if="${name!=null}">
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number - 1}, name=${name})}" th:if="${products.hasPrevious()}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=0, name=${name})}">1</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=1, name=${name})}">2</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=2, name=${name})}">3</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{'/shop'(page=${products.number + 1}, name=${name})}" th:if="${products.hasNext()}">Next</a></li>
-        </ul>
-    </nav1>
+
+
+</div>
 </div>
 </body>
 </html>

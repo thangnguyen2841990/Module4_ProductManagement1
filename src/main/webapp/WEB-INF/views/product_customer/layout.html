@@ -13,14 +13,6 @@
             margin: 0 auto;
         }
 
-       .content .content{
-            float: left;
-            margin-right: 30px;
-            margin-bottom: 10px;
-        }
-
-
-
 
         .card-body{
             float: left;
@@ -72,7 +64,6 @@
             color: black;
             background-color: whitesmoke;
             float: right;
-
         }
 
 
@@ -103,9 +94,10 @@
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Danh mục sản phẩm
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" th:each="category : ${categories}">
-                        <li><a class="dropdown-item" th:href="@{/shop/search}" th:text="${category.name}">
-                            </a></li>
+
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" name="categoryId">
+                        <li th:each="category : ${categories}" > <a class="dropdown-item" th:href="@{/shop/search/__${category.id}__}" th:value="${category.id}" th:text="${category.name}">
+                        </a></li>
                     </ul>
                 </li>
                 </li>

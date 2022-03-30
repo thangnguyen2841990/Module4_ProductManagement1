@@ -3,14 +3,12 @@ package com.codegym.model;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class ProductForm {
     private Long id;
     @NotEmpty(message = "Khong duoc de trong!")
+    @NotBlank(message = "Khong duoc de dau space!!")
     @Size(min = 6, max = 15,message = "Ten san pham tu 6 - 15 ky tu!")
     private String name;
     @NotNull(message = "Khong duoc de trong!")
