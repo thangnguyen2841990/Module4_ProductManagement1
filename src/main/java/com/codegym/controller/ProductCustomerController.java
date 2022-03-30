@@ -20,13 +20,15 @@ import java.util.Optional;
 @SessionAttributes("cart")
 public class ProductCustomerController {
     @ModelAttribute("cart")
-    public Cart setupCart(){
-        return  new Cart();
+    public Cart setupCart() {
+        return new Cart();
     }
+
     @Autowired
     IProductService productService;
     @Autowired
     ICategoryService categoryService;
+
     @ModelAttribute("categories")
     Iterable<Category> categories() {
         return categoryService.findAll();
@@ -49,36 +51,45 @@ public class ProductCustomerController {
             return modelAndView;
         }
     }
+
     @GetMapping("/add/{id}")
-    public ModelAndView addToCart(@PathVariable Long id, @ModelAttribute Cart cart, @RequestParam("action") String action){
-        Optional<Product> productOptional =productService.findById(id);
-        if (!productOptional.isPresent()){
+    public ModelAndView addToCart(@PathVariable Long id, @ModelAttribute Cart cart, @RequestParam("action") String action) {
+        Optional<Product> productOptional = productService.findById(id);
+        if (!productOptional.isPresent()) {
             return new ModelAndView("/product/error-404");
         }
-        if (action.equals("show")){
-            cart.addProduct(productOptional.get());
-            return new ModelAndView("redirect:/shopping-cart");
-        }
-        if (action.equals("show1")){
-            cart.addProduct1(productOptional.get());
-            return new ModelAndView("redirect:/shopping-cart");
-        }
-        if (action.equals("delete")){
-            cart.delete(productOptional.get());
-            return new ModelAndView("redirect:/shopping-cart");
-        }
-        cart.addProduct(productOptional.get());
-        return new ModelAndView("redirect:/shop");
+
+            if (action.equals("show")){
+                cart.addProduct(productOptional.get());
+                return new ModelAndView("redirect:/shopping-cart");
+            }
+            if (action.equals("show1")) {
+                cart.addProduct1(productOptional.get());
+                return new ModelAndView("redirect:/shopping-cart");
+            }
+                cart.addProduct(productOptional.get());
+                return new ModelAndView("redirect:/shop");
     }
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable Long id, @ModelAttribute Cart cart) {
+        Optional<Product> productOptional = productService.findById(id);
+        if (!productOptional.isPresent()) {
+            return new ModelAndView("/product/error-404");
+        }
+            cart.delete(productOptional.get());
+     ModelAndView modelAndView = new ModelAndView("redirect:/shopping-cart");
+     return modelAndView;
+    }
+
     @GetMapping("/search/{id}")
-    public ModelAndView findByCategory(@PathVariable Long id, @PageableDefault(value = 10) Pageable pageable){
-        Page<Product> products = this.productService.findByCategory(id,pageable);
+    public ModelAndView findByCategory(@PathVariable Long id, @PageableDefault(value = 10) Pageable pageable) {
+        Page<Product> products = this.productService.findByCategory(id, pageable);
         ModelAndView modelAndView = new ModelAndView("/product_customer/shop1");
         modelAndView.addObject("products", products);
-        modelAndView.addObject("categoryId",id);
+        modelAndView.addObject("categoryId", id);
         return modelAndView;
 
     }
 
 
-    }
+}

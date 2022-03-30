@@ -10,14 +10,12 @@
     <div class="content">
         <div class="row">
             <div  class="col-2" th:replace="/product_customer/layout::sidebar">
-
             </div>
             <div  class="col-10">
                 <p>
                     <a th:href="@{/shop}">Tiếp tục mua hàng</a>
                 </p>
                 <h3>GIỎ HÀNG CỦA BẠN</h3>
-                <form th:action="@{/shop}" th:object="${cart}" method="get">
                 <table class="table table-success table-striped">
                     <tr>
                         <th>STT</th>
@@ -25,7 +23,8 @@
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Giá(VND)</th>
-                        <th>Tổng số tiền phải trả</th>
+                        <th>Số tiền phải trả</th>
+                        <th>Thao tác</th>
                     </tr>
                     <tr th:each="product,productStatus: ${cart.products}">
                         <td th:text="${productStatus.count}"></td>
@@ -38,17 +37,22 @@
                                th:text="${'+'}"></a>
                         </td>
                         <td th:text="${product.getKey().getPrice()}"></td>
-                        <td th:text="${cart.countTotalPayment()}"></td>
+                        <td th:text="${product.getKey().getPrice()}*${product.getValue()}"></td>
                         <td>
-                            <a  th:href="@{/shop/add/__${product.getKey().id}__(action='delete')}">
+                            <a  th:href="@{/shop/delete/__${product.getKey().id}__}">
                                 <button class="btn btn-danger">Xóa</button></a>
                         </td>
+                        <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><h5>Tổng số tiền phải trả: </h5></td>
+                    <td th:text="${cart.countTotalPayment()}"></td>
+                </tr>
                     </tr>
-
-
                 </table>
-
-                </form>
             </div>
 
         </div>
